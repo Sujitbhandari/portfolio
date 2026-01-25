@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
-import { useRef, useEffect, ReactNode } from "react"
+import { useRef, useEffect, useState, ReactNode } from "react"
 
 interface Card3DProps {
   children: ReactNode
@@ -13,9 +13,18 @@ export function Card3D({ children, className = "", intensity = 20 }: Card3DProps
   const ref = useRef<HTMLDivElement>(null)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
+  const [isMobile, setIsMobile] = useState(false)
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
   
   // Reduce intensity on mobile
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
   const effectiveIntensity = isMobile ? intensity * 0.3 : intensity
 
   const mouseXSpring = useSpring(x, { stiffness: 500, damping: 100 })
