@@ -13,19 +13,22 @@ export function Card3D({ children, className = "", intensity = 20 }: Card3DProps
   const ref = useRef<HTMLDivElement>(null)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState(true) // Start as true to prevent SSR issues
   
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768)
     }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
+    // Check immediately on mount
+    if (typeof window !== 'undefined') {
+      checkMobile()
+      window.addEventListener('resize', checkMobile)
+      return () => window.removeEventListener('resize', checkMobile)
+    }
   }, [])
   
-  // Reduce intensity on mobile
-  const effectiveIntensity = isMobile ? intensity * 0.3 : intensity
+  // Reduce intensity on mobile, but keep full effects on desktop
+  const effectiveIntensity = isMobile ? Math.max(5, intensity * 0.2) : intensity
 
   const mouseXSpring = useSpring(x, { stiffness: 500, damping: 100 })
   const mouseYSpring = useSpring(y, { stiffness: 500, damping: 100 })
@@ -79,14 +82,14 @@ export function Card3D({ children, className = "", intensity = 20 }: Card3DProps
         perspective: isMobile ? "none" : "1000px",
         transformStyle: isMobile ? "flat" : "preserve-3d",
       }}
-      className={`${className} w-full overflow-hidden`}
+      className={`${className} w-full ${isMobile ? 'overflow-hidden' : ''}`}
     >
       <motion.div
         ref={ref}
         style={{
           rotateX: isMobile ? 0 : rotateX,
           rotateY: isMobile ? 0 : rotateY,
-          scale,
+          scale: isMobile ? undefined : scale,
           z: isMobile ? 0 : z,
           transformStyle: isMobile ? "flat" : "preserve-3d",
         }}

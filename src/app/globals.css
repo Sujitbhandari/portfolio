@@ -194,7 +194,7 @@
   transform: translateZ(20px);
 }
 
-/* Global 3D Perspective - Disable on mobile to prevent overflow */
+/* Global 3D Perspective - Full effects on desktop */
 html {
   perspective: 2000px;
   transform-style: preserve-3d;
@@ -209,6 +209,14 @@ body {
   html, body {
     perspective: none !important;
     transform-style: flat !important;
+  }
+}
+
+/* Ensure desktop maintains 3D effects */
+@media (min-width: 769px) {
+  html, body {
+    perspective: 2000px !important;
+    transform-style: preserve-3d !important;
   }
 }
 
