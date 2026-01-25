@@ -56,7 +56,7 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-tr from-amber-900/20 via-transparent to-orange-900/10" />
 
       {/* Content with Dramatic 3D Effect */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 text-center" style={{ perspective: "2000px", transformStyle: "preserve-3d" }}>
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 sm:px-6 text-center" style={{ perspective: "2000px", transformStyle: "preserve-3d" }}>
         <motion.div
           initial={{ opacity: 0, y: 50, rotateX: -40, z: -200 }}
           animate={{ opacity: 1, y: 0, rotateX: 0, z: 0 }}
@@ -64,12 +64,13 @@ export function HeroSection() {
           style={{
             transformStyle: "preserve-3d",
           }}
+          className="w-full max-w-5xl px-2"
         >
           <motion.p
             initial={{ opacity: 0, letterSpacing: "0.3em" }}
             animate={{ opacity: 1, letterSpacing: "0.5em" }}
             transition={{ duration: 1.2, delay: 0.2 }}
-            className="text-amber-200/80 text-sm md:text-base uppercase tracking-widest mb-6"
+            className="text-amber-200/80 text-xs sm:text-sm md:text-base uppercase tracking-widest mb-4 sm:mb-6"
           >
             Welcome to the Summit
           </motion.p>
@@ -78,7 +79,7 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 0.8, rotateX: -50, z: -300 }}
             animate={{ opacity: 1, scale: 1, rotateX: 0, z: 0 }}
             transition={{ duration: 1.2, delay: 0.4 }}
-            className="font-serif text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white mb-6 tracking-tight"
+            className="font-serif text-3xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white mb-4 sm:mb-6 tracking-tight"
             style={{ 
               textShadow: "0 15px 50px rgba(0,0,0,0.8), 0 0 80px rgba(251, 191, 36, 0.4), 0 0 120px rgba(251, 191, 36, 0.2)",
               transformStyle: "preserve-3d",
@@ -126,9 +127,9 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="mt-8"
+            className="mt-6 sm:mt-8"
           >
-            <p className="text-xl md:text-2xl text-white/90 font-light">
+            <p className="text-base sm:text-xl md:text-2xl text-white/90 font-light px-2">
               Sujit Bhandari | Software Engineer
             </p>
           </motion.div>

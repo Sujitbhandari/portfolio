@@ -15,7 +15,7 @@ export function AboutSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 1])
 
   return (
-    <section ref={containerRef} className="relative min-h-screen overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" style={{ paddingTop: "8rem", paddingBottom: "8rem" }}>
+    <section ref={containerRef} className="relative min-h-screen overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
       {/* 3D Ambient Background with Parallax */}
       <motion.div 
         style={{ y: backgroundY, opacity }}
@@ -48,17 +48,17 @@ export function AboutSection() {
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 50, rotateX: -30 }}
           whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-20"
           style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
         >
           <motion.h2 
-            className="font-serif text-4xl md:text-6xl font-bold text-white mb-4"
+            className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-4 px-2"
             style={{
               transform: "translateZ(50px)",
               textShadow: "0 10px 40px rgba(0,0,0,0.8), 0 0 60px rgba(251, 191, 36, 0.3)"
@@ -74,14 +74,14 @@ export function AboutSection() {
             The <span className="text-amber-300">Climber</span>
           </motion.h2>
           <motion.p 
-            className="text-white/60 text-lg max-w-2xl mx-auto"
+            className="text-white/60 text-base sm:text-lg max-w-2xl mx-auto px-2"
             style={{ transform: "translateZ(30px)" }}
           >
             Every expedition needs a skilled mountaineer. Here's what I bring to the climb.
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 sm:gap-12 items-center">
           {/* Picture Box on Left - Smaller */}
           <Card3D intensity={15} className="relative lg:col-span-2">
             <motion.div
@@ -118,17 +118,17 @@ export function AboutSection() {
               style={{ transformStyle: "preserve-3d" }}
             >
               <div
-                className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 relative"
+                className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-6 md:p-8 relative"
                 style={{
                   boxShadow: "0 30px 80px rgba(0, 0, 0, 0.7), 0 0 120px rgba(251, 191, 36, 0.2), inset 0 0 60px rgba(251, 191, 36, 0.05)",
                   transform: "translateZ(60px) rotateX(2deg)",
                   transformStyle: "preserve-3d"
                 }}
               >
-                <h3 className="font-serif text-2xl font-bold text-white mb-6">
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">
                   Reaching New Peaks in Tech
                 </h3>
-                <div className="space-y-4 text-white/70 leading-relaxed">
+                <div className="space-y-3 sm:space-y-4 text-sm sm:text-base text-white/70 leading-relaxed">
                   <p>
                     I'm a Computer Science and Mathematics student at Texas Christian University, 
                     passionate about building technology that makes a difference. Like scaling a 

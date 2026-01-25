@@ -60,7 +60,7 @@ export function ExperienceSection() {
   const yetiY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"])
 
   return (
-    <section ref={containerRef} className="relative min-h-screen overflow-hidden" style={{ paddingTop: "8rem", paddingBottom: "8rem" }}>
+    <section ref={containerRef} className="relative min-h-screen overflow-hidden" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
       {/* Parallax Background - Using Milky Way */}
       <div className="absolute inset-0 -z-10">
         <img
@@ -78,17 +78,17 @@ export function ExperienceSection() {
 
 
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 50, rotateX: -30 }}
           whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-20"
           style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
         >
           <motion.h2 
-            className="font-serif text-4xl md:text-6xl font-bold text-white mb-4"
+            className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-4 px-2"
             style={{
               transform: "translateZ(50px)",
               textShadow: "0 10px 40px rgba(0,0,0,0.8), 0 0 60px rgba(251, 191, 36, 0.3)"
@@ -104,7 +104,7 @@ export function ExperienceSection() {
             The <span className="text-amber-300">Descent</span>
           </motion.h2>
           <motion.p 
-            className="text-white/60 text-lg max-w-2xl mx-auto"
+            className="text-white/60 text-base sm:text-lg max-w-2xl mx-auto px-2"
             style={{ transform: "translateZ(30px)" }}
           >
             Every summit begins with a single step. Here's my journey through the peaks of experience.
