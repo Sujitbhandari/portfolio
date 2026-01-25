@@ -121,9 +121,29 @@
   }
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
   }
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+  }
+  /* Prevent horizontal overflow on mobile */
+  @media (max-width: 768px) {
+    html, body {
+      overflow-x: hidden !important;
+      width: 100% !important;
+      max-width: 100vw !important;
+    }
+    section {
+      overflow-x: hidden !important;
+      width: 100% !important;
+      max-width: 100vw !important;
+    }
   }
 }
 
@@ -174,7 +194,7 @@
   transform: translateZ(20px);
 }
 
-/* Global 3D Perspective */
+/* Global 3D Perspective - Disable on mobile to prevent overflow */
 html {
   perspective: 2000px;
   transform-style: preserve-3d;
@@ -182,6 +202,14 @@ html {
 
 body {
   transform-style: preserve-3d;
+}
+
+/* Disable 3D transforms on mobile to prevent overflow */
+@media (max-width: 768px) {
+  html, body {
+    perspective: none !important;
+    transform-style: flat !important;
+  }
 }
 
 /* Enhanced 3D Shadows */

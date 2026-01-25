@@ -13,21 +13,25 @@ export function Card3D({ children, className = "", intensity = 20 }: Card3DProps
   const ref = useRef<HTMLDivElement>(null)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
+  
+  // Reduce intensity on mobile
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  const effectiveIntensity = isMobile ? intensity * 0.3 : intensity
 
   const mouseXSpring = useSpring(x, { stiffness: 500, damping: 100 })
   const mouseYSpring = useSpring(y, { stiffness: 500, damping: 100 })
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [`${intensity}deg`, `-${intensity}deg`])
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [`-${intensity}deg`, `${intensity}deg`])
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [`${effectiveIntensity}deg`, `-${effectiveIntensity}deg`])
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [`-${effectiveIntensity}deg`, `${effectiveIntensity}deg`])
   const scale = useTransform(
     mouseXSpring,
     [-0.5, 0, 0.5],
-    [1, 1.1, 1]
+    isMobile ? [1, 1, 1] : [1, 1.1, 1]
   )
   const z = useTransform(
     mouseXSpring,
     [-0.5, 0, 0.5],
-    [0, 50, 0]
+    isMobile ? [0, 0, 0] : [0, 50, 0]
   )
 
   useEffect(() => {
@@ -63,26 +67,28 @@ export function Card3D({ children, className = "", intensity = 20 }: Card3DProps
   return (
     <div
       style={{
-        perspective: "1000px",
-        transformStyle: "preserve-3d",
+        perspective: isMobile ? "none" : "1000px",
+        transformStyle: isMobile ? "flat" : "preserve-3d",
       }}
-      className={className}
+      className={`${className} w-full overflow-hidden`}
     >
       <motion.div
         ref={ref}
         style={{
-          rotateX,
-          rotateY,
+          rotateX: isMobile ? 0 : rotateX,
+          rotateY: isMobile ? 0 : rotateY,
           scale,
-          z,
-          transformStyle: "preserve-3d",
+          z: isMobile ? 0 : z,
+          transformStyle: isMobile ? "flat" : "preserve-3d",
         }}
+        className="w-full"
       >
         <motion.div 
           style={{ 
-            transform: "translateZ(50px)",
-            transformStyle: "preserve-3d"
+            transform: isMobile ? "none" : "translateZ(50px)",
+            transformStyle: isMobile ? "flat" : "preserve-3d"
           }}
+          className="w-full"
         >
           {children}
         </motion.div>
