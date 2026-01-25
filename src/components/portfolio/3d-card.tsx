@@ -13,22 +13,22 @@ export function Card3D({ children, className = "", intensity = 20 }: Card3DProps
   const ref = useRef<HTMLDivElement>(null)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
-  const [isMobile, setIsMobile] = useState(true) // Start as true to prevent SSR issues
+  const [isMobile, setIsMobile] = useState(false) // Start as false (desktop) for better initial render
   
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
+      if (typeof window !== 'undefined') {
+        setIsMobile(window.innerWidth < 768)
+      }
     }
     // Check immediately on mount
-    if (typeof window !== 'undefined') {
-      checkMobile()
-      window.addEventListener('resize', checkMobile)
-      return () => window.removeEventListener('resize', checkMobile)
-    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
   
-  // Reduce intensity on mobile, but keep full effects on desktop
-  const effectiveIntensity = isMobile ? Math.max(5, intensity * 0.2) : intensity
+  // Full intensity on desktop, minimal on mobile
+  const effectiveIntensity = isMobile ? 5 : intensity
 
   const mouseXSpring = useSpring(x, { stiffness: 500, damping: 100 })
   const mouseYSpring = useSpring(y, { stiffness: 500, damping: 100 })
@@ -38,12 +38,12 @@ export function Card3D({ children, className = "", intensity = 20 }: Card3DProps
   const scale = useTransform(
     mouseXSpring,
     [-0.5, 0, 0.5],
-    isMobile ? [1, 1, 1] : [1, 1.1, 1]
+    [1, isMobile ? 1 : 1.1, 1]
   )
   const z = useTransform(
     mouseXSpring,
     [-0.5, 0, 0.5],
-    isMobile ? [0, 0, 0] : [0, 50, 0]
+    [0, isMobile ? 0 : 50, 0]
   )
 
   useEffect(() => {
@@ -86,12 +86,15 @@ export function Card3D({ children, className = "", intensity = 20 }: Card3DProps
     >
       <motion.div
         ref={ref}
-        style={{
-          rotateX: isMobile ? 0 : rotateX,
-          rotateY: isMobile ? 0 : rotateY,
-          scale: isMobile ? undefined : scale,
-          z: isMobile ? 0 : z,
-          transformStyle: isMobile ? "flat" : "preserve-3d",
+        style={isMobile ? {
+          scale: 1,
+          transformStyle: "flat",
+        } : {
+          rotateX,
+          rotateY,
+          scale,
+          z,
+          transformStyle: "preserve-3d",
         }}
         className="w-full"
       >
