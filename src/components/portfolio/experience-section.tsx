@@ -156,18 +156,14 @@ export function ExperienceSection() {
                       {exp.title}
                     </h3>
                     <p className="text-amber-200/80 font-medium mb-4">{exp.company}</p>
-                    {exp.description ? (
-                      <p className="text-white/70 leading-relaxed">{exp.description}</p>
-                    ) : (
-                      <ul className="space-y-2 text-white/70 leading-relaxed">
-                        {exp.bullets.map((bullet, bulletIndex) => (
-                          <li key={bulletIndex} className="flex items-start">
-                            <span className="text-amber-400 mr-2 mt-1">•</span>
-                            <span>{bullet}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                    <ul className="space-y-2 text-white/70 leading-relaxed">
+                      {exp.bullets.map((bullet, bulletIndex) => (
+                        <li key={bulletIndex} className="flex items-start">
+                          <span className="text-amber-400 mr-2 mt-1">•</span>
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </motion.div>
 
